@@ -1,42 +1,115 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>v-if If Statements</title>
-		<meta charset="UTF-8">
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<style>
-			.special {background:yellow; border: 1px dotted #fe0000; padding:30px; display:block; text-align:center;}
-			.important {font-weight:bold; font-size:30px;}
-		</style>
-	</head>
-	<body>
-	
+
+<head>
+	<title>v-if If Statements</title>
+	<meta charset="UTF-8">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.special {
+			background: yellow;
+			border: 1px dotted #fe0000;
+			padding: 30px;
+			display: block;
+			text-align: center;
+		}
+
+		.important {
+			font-weight: bold;
+			font-size: 30px;
+		}
+
+		.card {
+			box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+			transition: 0.3s;
+			border-radius: 5px;
+			max-width: 300px;
+			text-align: center;
+			margin: 0 auto;
+			padding: 30px;
+			/* 5px rounded corners */
+		}
+
+		/* On mouse-over, add a deeper shadow */
+		.card:hover {
+			box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+		}
+
+		/* Add some padding inside the card container */
+		.container {
+			padding: 2px 16px;
+		}
+
+		img {
+			border-radius: 5px 5px 0 0;
+		}
+	</style>
+</head>
+
+<body>
+
 	<div id="app">
 		<span v-if="profile">
-			Profile of {{profile.fname}} {{profile.lname}} 
+			<div :class="[profileCard]">
+				<h2>{{profile.fname}} {{profile.lname}}</h2>
+				<div v-if="profile.photo">
+					<img :src="[profile.photo]" :alt="[profile.fname + ' ' + profile.lname]" width=100px />
+				</div>
+				<div v-else>
+					<img :src="[defaultImage]" :alt="[profile.fname + ' ' + profile.lname]" width=100px />
+				</div>
+				<div v-if="profile.desc">
+					<p>{{profile.desc}}</p>
+				</div>
+				<div v-else>
+					<p>Description not found</p>
+				</div>
+				<div v-if="profile.bio">
+					<p>{{profile.bio}}</p>
+				</div>
+				<div v-else>
+					<p>Bio not found</p>
+				</div>
+
+
+			</div>
+
 		</span>
 		<span v-else>
 			No Profile Data found.
 		</span>
 	</div>
-	
+
 	<script>
-	var app = new Vue({
-		el: '#app',
-		
-		data:{
-			/*
-			profile:{
-				fname: "John",
-				lname: "Doe"	
+		var app = new Vue({
+			el: '#app',
+
+			data: {
+				profileCard: "card",
+				defaultImage: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg",
+				profile: {
+					fname: "Lego",
+					lname: "Man",
+					photo: "https://randomuser.me/api/portraits/lego/8.jpg",
+					desc: "I am working as a chef in Legoland.",
+					bio: "CEO, entrepreneur\
+						Born in 1964\
+						Jeffrey, Jeffrey Bezos\
+						CEO, entrepreneur\
+						Born in 1964\
+						Jeffrey, Jeffrey Bezos\
+						C'mon Jeffrey, you can do it\
+						Pave the way, put your back into it\
+						Tell us why, show us how\
+						Look at where you came from, look at you now",
+				}
+
 			}
-			*/
-		}
-		
-	});
+
+		});
 	</script>
-	
-		<!--
+
+	<!--
 		//step 1: Read Code Above
 		//step 2: Does the profile show up?
 		
@@ -56,5 +129,6 @@
 			(Something like this https://www.w3schools.com/howto/howto_css_cards.asp)
 		3. Write conditionals if information is missing (i.e. 'no bio available' if bio is blank, generic image if no pic is found)
 		-->
-	</body>
+</body>
+
 </html>

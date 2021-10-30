@@ -1,60 +1,65 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Vue Components</title>
-		<meta charset="UTF-8">
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<style>
-			.circle{border-radius:50%; background:Grey; border:1px solid #ccc; display:inline-block;}
-		</style>
-	</head>
-	<body>
-	
+
+<head>
+	<title>Vue Components</title>
+	<meta charset="UTF-8">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.circle {
+			border-radius: 50%;
+			background: Grey;
+			border: 1px solid #ccc;
+			display: inline-block;
+			position: absolute;
+		}
+	</style>
+</head>
+
+<body>
+
 	<div id="app">
-		<orb v-bind:radius="40" v-bind:color="'white'"></orb>
-		<orb 
-			v-for="orb in orbs"
-			v-bind:radius="orb.radius"
-			v-bind:color="orb.color"
-			v-bind:key="orb.id">
+		<orb v-bind:radius="40" v-bind:color="'white'" :x=40 :y=400></orb>
+		<orb v-for="orb in orbs" v-bind:radius="orb.radius" v-bind:color="orb.color" v-bind:key="orb.id" :x="orb.x"
+			:y="orb.y">
 		</orb>
 	</div>
-	
+
 	<script>
-	Vue.component('orb',{
-		props:['radius','color'],	
-		template:
-		`<span 
+		Vue.component('orb', {
+			props: ['radius', 'color', 'x', 'y'],
+			template:
+				`<span 
 			v-bind:class="'circle'" 
-			v-bind:style="{'width':radius+'px', 'height':radius+'px', 'background':color}"
+			v-bind:style="{'width':radius+'px', 'height':radius+'px', 'background':color, 'top':y+'px', 'left':x+'px'}"
 			v-on:click="prompt();">
 		</span>`,
-		methods:{
-			prompt:function(){
-				alert('You clicked the '+this.color+' circle!');	
-				this.color='none';
-			}	
-		}
-	
-	});
-	
-	var app = new Vue({
-		el: '#app',
-		
-		data:{
-			orbs:[
-				{id:1, radius:10, color:'green'},
-				{id:2, radius:15, color:'purple'},
-				{id:3, radius:20, color:'black'},
-				{id:4, radius:25, color:'blue'},
-				{id:5, radius:30, color:'orange'},
-				{id:6, radius:35, color:'yellow'},
-				{id:7, radius:45, color:'red'}
-			]
-		},
-		
-		
-	});
+			methods: {
+				prompt: function () {
+					alert('You clicked the ' + this.color + ' circle!');
+					this.color = 'none';
+				}
+			}
+
+		});
+
+		var app = new Vue({
+			el: '#app',
+
+			data: {
+				orbs: [
+					{ id: 1, radius: 10, color: 'green', x: 20, y: 30, },
+					{ id: 2, radius: 15, color: 'purple', x: 10, y: 70, },
+					{ id: 3, radius: 20, color: 'black', x: 60, y: 130, },
+					{ id: 4, radius: 25, color: 'blue', x: 50, y: 230, },
+					{ id: 5, radius: 30, color: 'orange', x: 10, y: 280, },
+					{ id: 6, radius: 35, color: 'yellow', x: 120, y: 30, },
+					{ id: 7, radius: 45, color: 'red', x: 220, y: 30, }
+				]
+			},
+
+
+		});
 	</script>
 	<!--
 		Step 1: Run the code above!
@@ -77,6 +82,7 @@
 		2. Create two new properties "x" and "y" for each orb
 		3. Pass through values of "x" and "y" in the app to have circles on different spots of the screen
 	
-	-->	
-	</body>
+	-->
+</body>
+
 </html>
